@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Produkty{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="animated-bg" aria-hidden="true"></div>
+    <div class="app-wrap">
+        <header class="site-nav">
+            <div class="nav-container">
+                <a class="brand" href="{{ url_for('index') }}">Moje Aplikace</a>
+                <nav>
+                    <a href="{{ url_for('index') }}">Domů</a>
+                    <a href="{{ url_for('about') }}">O projektu</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="toasts"> 
+                  {% for category, msg in messages %}
+                    <div class="toast {{ category }}">{{ msg }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">© {{ current_year }} Databaze — made with ❤️</footer>
+    </div>
+</body>
+</html>
